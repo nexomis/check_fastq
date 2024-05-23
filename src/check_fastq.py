@@ -18,6 +18,7 @@ def parse_fastq(handle, handle2, crypt_algo, num_bytes):
     handle.readline()  # Skip line
 
     if handle2 is not None:
+      handle2.readline()  # Skip line
       seq += "+" + handle2.readline().strip()
       handle2.readline()  # Skip line
       handle2.readline()  # Skip line
@@ -65,6 +66,7 @@ def parse_fastq_test(handle, handle2, crypt_algo, num_bytes, target_reads, n_mut
     handle.readline()  # Skip line
 
     if handle2 is not None:
+      handle2.readline()  # Skip line
       seq2 = handle2.readline().strip()
       handle2.readline()  # Skip line
       handle2.readline()  # Skip line
@@ -144,10 +146,11 @@ def main(args):
           seq_count[seq][1] += 1
         else:
           same_seqs = False
+          print(seq_count)
           break_reason = "new key in second File/Pair"
           break
-      if handle2_r:
-        handle2_r.close()
+    if handle2_r:
+      handle2_r.close()
 
   batch2_duration = time.time() - start_time2  # End timer for batch 2
 
